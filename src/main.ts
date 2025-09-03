@@ -13,7 +13,7 @@ async function bootstrap() {
     .addTag('app-airconnect-api')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('api/airconnect', app, document);
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
