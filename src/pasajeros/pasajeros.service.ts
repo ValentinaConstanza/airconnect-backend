@@ -40,7 +40,7 @@ export class PasajerosService {
     return this.pasajeros;
   }
 
-  findOne(id: number) {
+  findOne(id: number): Pasajero {
     const pasajeroId = this.pasajeros.find(p => p.id === id);
     if (!pasajeroId) {
       throw new NotFoundException(`No existe un pasajero registrado con id ${id}`);

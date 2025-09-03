@@ -5,26 +5,27 @@ import { Aeropuerto } from './entities/aeropuerto.entity';
 
 @Injectable()
 export class AeropuertosService {
-  aeropuertos: Aeropuerto [] = []
+  aeropuertos: Aeropuerto[] = []
   constructor() {
     this.inicializaraeropuerto();
   }
-  inicializaraeropuerto () {
-    this.aeropuertos.push (
-      new Aeropuerto (1,"Aeropuerto de Santiago", "SCL", "Santiago")
+  inicializaraeropuerto() {
+    this.aeropuertos.push(
+      new Aeropuerto(1, "Aeropuerto de Santiago", "SCL", "Santiago"),
+      new Aeropuerto(2, "Aeropuerto de Sao Pablo", "GRU", "Guarulos")
     )
   }
 
   create(createAeropuertoDto: CreateAeropuertoDto) {
-    const codigoEncontrado= this.aeropuertos.find(
+    const codigoEncontrado = this.aeropuertos.find(
       (aeropuerto: Aeropuerto) =>
         aeropuerto.codigo === createAeropuertoDto.codigo
     );
     if (codigoEncontrado) {
       throw new BadRequestException(`Ya existe un aeropuerto con este codigo`)
     }
-    const nuevoAeropuerto = new Aeropuerto (
-      this.aeropuertos.length +1,
+    const nuevoAeropuerto = new Aeropuerto(
+      this.aeropuertos.length + 1,
       createAeropuertoDto.nombre,
       createAeropuertoDto.codigo,
       createAeropuertoDto.ciudad
@@ -33,15 +34,24 @@ export class AeropuertosService {
     return nuevoAeropuerto;
   }
 
-  findAll(): Aeropuerto [] {
+  findAll(): Aeropuerto[] {
     return this.aeropuertos;
   }
 
   findOne(id: number) {
-    const aeropuertoId = this.aeropuertos.find (a => a.id === id);
-    if(! aeropuertoId ) {
+    const aeropuertoId = this.aeropuertos.find(a => a.id === id);
+    if (!aeropuertoId) {
       throw new NotFoundException(`No existe aeropuerto registrado con id ${id}`);
     }
     return aeropuertoId;
+  }
+  existsByCodigo(codigo: string): Aeropuerto {
+    const aeropuerto = this.aeropuertos.find(a => a.codigo === codigo);
+    if (!aeropuerto) {
+      throw new NotFoundException(
+        `No existe un aeropuerto registrado con código ${codigo}`,
+      );
+    }
+    return aeropuerto;
   }
 }
