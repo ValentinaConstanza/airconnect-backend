@@ -14,7 +14,8 @@ export class PasajerosService {
 
   inicializarPasajeros() {
     this.pasajeros.push(
-      new Pasajero(1, "Daniela", "Troncoso", "daniela@ejemplo.cl")
+      new Pasajero(1, "Daniela", "Troncoso", "daniela@ejemplo.cl"),
+      new Pasajero(2, "Valentina", "Villanueva", "val@ejemplo.cl")
     )
   }
 
